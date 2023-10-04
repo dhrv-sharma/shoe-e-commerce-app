@@ -66,6 +66,7 @@ flutter:
     - images/adidas.png
     - images/top.png
     - images/shoep.png
+    - json/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

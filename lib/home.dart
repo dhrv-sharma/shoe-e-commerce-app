@@ -28,8 +28,10 @@ class _homeState extends State<home> {
         builder: (context, mainScreenNotifier, child) { // mainScreenNotifier is the object 
       return Scaffold(
         backgroundColor: const Color(0xFFE2E2E2),
+
         body: pageList[mainScreenNotifier.pageIndex], // getting the variable
         bottomNavigationBar: SafeArea(
+          
             child: Padding(
           padding: const EdgeInsets.all(8),
           child: Container(
