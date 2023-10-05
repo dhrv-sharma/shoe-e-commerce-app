@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/services/helper.dart';
+import 'package:ecommerce/productBYcat.dart';
+import 'package:ecommerce/views/productpage.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:ecommerce/views/shared/productcart.dart';
 import 'package:flutter/material.dart';
 
 class homeShoe extends StatefulWidget {
-  homeShoe({super.key, required this.userShoe});
+  homeShoe({super.key, required this.userShoe,required this.tabindex});
 
   late Future<List<Sneakers>> userShoe;
+  int tabindex;
 
   @override
   State<homeShoe> createState() => _homeShoeState();
@@ -38,12 +40,17 @@ class _homeShoeState extends State<homeShoe> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         final shoe = snapshot.data![index];
-                        return productCard(
-                            categogry: shoe.category,
-                            price: "\$${shoe.price}",
-                            id: shoe.id,
-                            name: shoe.name,
-                            image: shoe.imageUrl[0]);
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => productPage(id: shoe.id, category: shoe.category)));
+                          },
+                          child: productCard(
+                              categogry: shoe.category,
+                              price: "\$${shoe.price}",
+                              id: shoe.id,
+                              name: shoe.name,
+                              image: shoe.imageUrl[0]),
+                        );
                       },
                     );
                   }
@@ -62,9 +69,14 @@ class _homeShoeState extends State<homeShoe> {
                     ),
                     Row(
                       children: [
-                        Text(
-                          "Show All ",
-                          style: appstyle(22, Colors.black, FontWeight.w500),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>productByCat(index: widget.tabindex)));
+                          },
+                          child: Text(
+                            "Show All ",
+                            style: appstyle(22, Colors.black, FontWeight.w500),
+                          ),
                         ),
                         // Icon(Icons.c)
                       ],

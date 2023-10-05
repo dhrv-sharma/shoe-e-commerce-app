@@ -32,7 +32,7 @@ class _homeState extends State<home> {
         body: pageList[mainScreenNotifier.pageIndex], // getting the variable
         bottomNavigationBar: SafeArea(
           
-            child: Padding(
+          child: Padding(
           padding: const EdgeInsets.all(8),
           child: Container(
             // container take the size of its children
