@@ -3,6 +3,7 @@ import 'package:ecommerce/services/helper.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:ecommerce/views/shared/shoesdisplay.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -12,8 +13,8 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> with TickerProviderStateMixin {
-  late final TabController tabController =
-      TabController(length: 3, vsync: this); // length is three because of three sections only 
+  late final TabController tabController = TabController(
+      length: 3, vsync: this); // length is three because of three sections only
 
   late Future<List<Sneakers>> _male;
   late Future<List<Sneakers>> _female;
@@ -42,6 +43,9 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.black, // status bar color
+    ));
     return Scaffold(
         backgroundColor: const Color(0xFFE2E2E2),
         body: SizedBox(
@@ -56,7 +60,7 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin {
                       image: AssetImage("images/top.png"), fit: BoxFit.fill),
                 ),
                 child: Container(
-                  padding:const  EdgeInsets.only(left: 8, bottom: 15),
+                  padding: const EdgeInsets.only(left: 8, bottom: 15),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +105,18 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin {
                 child: Container(
                   padding: const EdgeInsets.only(left: 12),
                   child: TabBarView(controller: tabController, children: [
-                    homeShoe(userShoe: _male,tabindex: 0,),
-                    homeShoe(userShoe: _female,tabindex: 1,),
-                    homeShoe(userShoe: _kid,tabindex: 2,),
+                    homeShoe(
+                      userShoe: _male,
+                      tabindex: 0,
+                    ),
+                    homeShoe(
+                      userShoe: _female,
+                      tabindex: 1,
+                    ),
+                    homeShoe(
+                      userShoe: _kid,
+                      tabindex: 2,
+                    ),
                   ]),
                 ),
               )

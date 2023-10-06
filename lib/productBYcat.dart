@@ -94,10 +94,7 @@ class _productByCatState extends State<productByCat>
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => home()));
+                                  Navigator.pop(context);
                                 },
                                 child: const Icon(
                                   Icons.close,
