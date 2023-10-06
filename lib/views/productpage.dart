@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce/CheckOutButton.dart';
 import 'package:ecommerce/controllers/product_providers.dart';
 import 'package:ecommerce/model/productcart.dart';
 import 'package:ecommerce/services/helper.dart';
@@ -49,7 +50,7 @@ class _productPageState extends State<productPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
-            print(" Error ${snapshot.error}");
+            // print(" Error ${snapshot.error}");
 
             return Text(" Error ${snapshot.error}");
           } else {
@@ -448,31 +449,9 @@ class _productPageState extends State<productPage> {
                               Align(
                                 alignment: Alignment.bottomCenter,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                            color: Colors.black,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(12))),
-                                        height: 50,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.9,
-                                        child: Center(
-                                          child: Text(
-                                            "Add to Bag",
-                                            style: appstyle(20, Colors.white,
-                                                FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                    padding: const EdgeInsets.all(8),
+                                    child: checkButton(
+                                        onTap: () {}, label: "Add to Bag")),
                               ),
                             ],
                           ),
