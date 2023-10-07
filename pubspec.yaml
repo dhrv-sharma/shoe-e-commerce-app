@@ -44,6 +44,10 @@ dependencies:
   flutter_rating_bar:
   flutter_slidable:
   flutter_vector_icons: ^2.0.0
+  flutter_screenutil: ^5.7.0
+  firebase_core:
+  firebase_auth: ^4.2.0
+  google_sign_in:
 
 
 dev_dependencies:

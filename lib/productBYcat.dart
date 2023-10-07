@@ -1,10 +1,7 @@
 import 'package:ecommerce/allproductview.dart';
-import 'package:ecommerce/cartpage.dart';
-import 'package:ecommerce/home.dart';
-import 'package:ecommerce/homepage.dart';
+
 import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/profilepage.dart';
-import 'package:ecommerce/searchpage.dart';
+
 import 'package:ecommerce/services/helper.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:ecommerce/views/shared/category_btn.dart';
@@ -60,13 +57,6 @@ class _productByCatState extends State<productByCat>
     getkid();
   }
 
-  List<Widget> pageList = const [
-    homePage(),
-    searchpage(),
-    homePage(),
-    cartPage(),
-    profilePage()
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
