@@ -6,8 +6,7 @@ import '';
 class helper {
   // Male
   Future<List<Sneakers>> getMaleSneakers() async {
-    final data =
-        await the_bundle.rootBundle.loadString("json/men_shoes.json");
+    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
 
     final maleList = sneakersFromJson(data);
 
@@ -30,8 +29,7 @@ class helper {
 
 // Kids
   Future<List<Sneakers>> getKidsSneakers() async {
-    final data =
-        await the_bundle.rootBundle.loadString("json/kids_shoes.json");
+    final data = await the_bundle.rootBundle.loadString("json/kids_shoes.json");
 
     final kidsList = sneakersFromJson(data);
 
@@ -42,8 +40,7 @@ class helper {
 
   // Single Male
   Future<Sneakers> getMaleSneakersById(String id) async {
-    final data =
-        await the_bundle.rootBundle.loadString("json/men_shoes.json");
+    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
 
     final maleList = sneakersFromJson(data);
 
@@ -52,7 +49,104 @@ class helper {
     return sneaker;
   }
 
-    // Single Male
+// getting fav list
+  Future<List<Sneakers>> getListMaleSneakersById(
+      List<String> id, List<String> categrory, List<String> fav) async {
+    print(id);
+    print(categrory);
+    print(fav);
+
+    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
+
+    final maleList = sneakersFromJson(data);
+
+    final data2 =
+        await the_bundle.rootBundle.loadString("json/women_shoes.json");
+
+    final femaleList = sneakersFromJson(data2);
+
+    final data3 =
+        await the_bundle.rootBundle.loadString("json/kids_shoes.json");
+
+    final kidsList = sneakersFromJson(data3);
+
+    List<Sneakers> sneaker = [];
+
+    int index = 0;
+
+    id.forEach((element) {
+      print(categrory[index]);
+      print(fav[index]);
+      print(element);
+      if (categrory[index] == "Men's Running" && fav[index] == 'true') {
+        final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+        // add male fav shoes
+      } else if (categrory[index] == "Women's Running" &&
+          fav[index] == 'true') {
+        final temp = femaleList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+
+        // add female shoes
+      } else if (categrory[index] == "Kids' Running" && fav[index] == 'true') {
+        final temp = kidsList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+      } else {}
+      index++;
+    });
+
+    return sneaker;
+  }
+
+  Future<List<Sneakers>> getListCARTSneakersById(
+      List<String> id, List<String> categrory, List<String> fav) async {
+    print(id);
+    print(categrory);
+    print(fav);
+
+    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
+
+    final maleList = sneakersFromJson(data);
+
+    final data2 =
+        await the_bundle.rootBundle.loadString("json/women_shoes.json");
+
+    final femaleList = sneakersFromJson(data2);
+
+    final data3 =
+        await the_bundle.rootBundle.loadString("json/kids_shoes.json");
+
+    final kidsList = sneakersFromJson(data3);
+
+    List<Sneakers> sneaker = [];
+
+    int index = 0;
+
+    id.forEach((element) {
+      print(categrory[index]);
+      print(fav[index]);
+      print(element);
+      if (categrory[index] == "Men's Running" && fav[index] == 'true') {
+        final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+        // add male fav shoes
+      } else if (categrory[index] == "Women's Running" &&
+          fav[index] == 'true') {
+        final temp = femaleList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+
+        // add female shoes
+      } else if (categrory[index] == "Kids' Running" && fav[index] == 'true') {
+        final temp = kidsList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+      } else {}
+      index++;
+    });
+
+    return sneaker;
+  }
+
+  // Single Male
   Future<Sneakers> getFemaleSneakersById(String id) async {
     final data =
         await the_bundle.rootBundle.loadString("json/women_shoes.json");
@@ -64,11 +158,9 @@ class helper {
     return sneaker;
   }
 
-
-    // Single Kids
+  // Single Kids
   Future<Sneakers> getKidsSneakersById(String id) async {
-    final data =
-        await the_bundle.rootBundle.loadString("json/kids_shoes.json");
+    final data = await the_bundle.rootBundle.loadString("json/kids_shoes.json");
 
     final maleList = sneakersFromJson(data);
 
