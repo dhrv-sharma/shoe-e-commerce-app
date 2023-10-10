@@ -4,8 +4,13 @@ class ProductNotifiers extends ChangeNotifier {
   int _activepage = 0;
 
   bool _isFav = true;
+  bool _isCarted = false;
 
   List<dynamic> _shoesSize = [];
+  void valSet(bool vale, List<dynamic> size) {
+    _isFav = vale;
+    _shoesSize = size;
+  }
 
 // getter method for activepage
   int get activepage => _activepage;
@@ -43,7 +48,13 @@ class ProductNotifiers extends ChangeNotifier {
       }
     }
 
-    print(_shoesSize);
+    notifyListeners();
+  }
+
+  bool get isCarted => _isCarted;
+
+  void orderplaced(bool check) {
+    _isCarted = check;
     notifyListeners();
   }
 

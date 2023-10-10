@@ -91,8 +91,6 @@ class _homeShoeState extends State<homeShoe> {
                                 final shoe = snapshot.data![index];
                                 return GestureDetector(
                                   onTap: () {
-                                    productNotifiers.shoeSizes = shoe.sizes;
-
                                     setState(() {
                                       getDetails();
                                     });
@@ -101,6 +99,7 @@ class _homeShoeState extends State<homeShoe> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => productPage(
+                                                  shoesize: shoe.sizes,
                                                   id: shoe.id,
                                                   category: shoe.category,
                                                 )));

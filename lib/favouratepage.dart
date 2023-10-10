@@ -182,6 +182,9 @@ class _FavouratesState extends State<Favourates> {
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) => productPage(
+                                                                  shoesize: shoelist[
+                                                                          index]
+                                                                      .sizes,
                                                                   id: shoelist[
                                                                           index]
                                                                       .id,

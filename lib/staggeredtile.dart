@@ -27,7 +27,9 @@ class _StaggeredtileState extends State<Staggeredtile> {
               context,
               MaterialPageRoute(
                   builder: (context) => productPage(
-                      id: widget.shoes.id, category: widget.shoes.category)));
+                      shoesize: widget.shoes.sizes,
+                      id: widget.shoes.id,
+                      category: widget.shoes.category)));
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

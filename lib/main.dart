@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/controllers/cart_notifer.dart';
 import 'package:ecommerce/controllers/mainscreen_providers.dart';
 import 'package:ecommerce/controllers/product_providers.dart';
 import 'package:ecommerce/firebase_options.dart';
@@ -59,6 +60,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => MainScreenNotifier()),
       ChangeNotifierProvider(create: (context) => ProductNotifiers()),
+      ChangeNotifierProvider(create: (context) => cart_Notifer())
     ], // we are using multiproviders hence have to mention all providers
     child: ScreenUtilInit(
         designSize: const Size(375, 812),

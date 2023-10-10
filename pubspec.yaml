@@ -49,6 +49,7 @@ dependencies:
   firebase_auth: ^4.2.0
   google_sign_in:
   cloud_firestore: 
+  fluttertoast: ^8.2.2
 
 
 dev_dependencies:

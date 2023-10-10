@@ -11,8 +11,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class productPage extends StatefulWidget {
-  const productPage({super.key, required this.id, required this.category});
+  const productPage(
+      {super.key,
+      required this.id,
+      required this.category,
+      required this.shoesize});
 
+  final List<dynamic> shoesize;
   final String id;
   final String category;
 
@@ -22,8 +27,8 @@ class productPage extends StatefulWidget {
 
 class _productPageState extends State<productPage> {
   bool isLoading = false;
-  String btn = "Add To Bag";
-  String carted = "";
+  bool isCarted = false;
+
   final user = FirebaseAuth.instance.currentUser!;
   final PageController _pageController = new PageController();
 
@@ -40,8 +45,6 @@ class _productPageState extends State<productPage> {
 
   List<String> fav = [];
 
-  List<dynamic> size = [];
-
   Future<void> getfavshoesID(String mail) async {
     FirebaseFirestore.instance
         .collection("users")
@@ -53,19 +56,12 @@ class _productPageState extends State<productPage> {
         Map test = element.data();
         if (test["fav"] == "true") {
           fav.add(test["id"]);
-          if (test["sizes"] == null) {
-          } else {
-            size.addAll(test["sizes"]);
-          }
 
           if (test["id"] == widget.id) {
             if (test["cart"] == "true") {
-              btn = "Already Added to cart";
-              carted = "true";
+              isCarted = true;
             }
           }
-
-          print(size);
         }
       });
       isLoading = false;
@@ -86,6 +82,7 @@ class _productPageState extends State<productPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("$isCarted");
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.grey.shade300, // status bar color
     ));
@@ -96,7 +93,7 @@ class _productPageState extends State<productPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
-            // print(" Error ${snapshot.error}");
+            print(" Error ${snapshot.error}");
 
             return Text(" Error ${snapshot.error}");
           } else {
@@ -111,7 +108,9 @@ class _productPageState extends State<productPage> {
                 : SafeArea(
                     child: Scaffold(body: Consumer<ProductNotifiers>(
                       builder: (context, productNotifiers, child) {
+                        productNotifiers.valSet(isCarted, widget.shoesize);
                         productNotifiers.lFav(fav.contains(widget.id));
+                        print(productNotifiers.shoeSizes.length);
                         return CustomScrollView(
                           slivers: [
                             SliverAppBar(
@@ -125,7 +124,7 @@ class _productPageState extends State<productPage> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        productNotifiers.shoeSizes.clear();
+                                        productNotifiers.valSet(false, []);
                                         Navigator.pop(context);
                                       },
                                       child: const Icon(
@@ -241,6 +240,11 @@ class _productPageState extends State<productPage> {
                                                           });
                                                         }
 
+                                                        productNotifiers
+                                                            .favChang(
+                                                                !productNotifiers
+                                                                    .isFav);
+
                                                         productNotifiers.lFav(
                                                             !productNotifiers
                                                                 .isFav);
@@ -251,11 +255,6 @@ class _productPageState extends State<productPage> {
                                                         } else {
                                                           fav.add(widget.id);
                                                         }
-
-                                                        productNotifiers
-                                                            .favChang(
-                                                                !productNotifiers
-                                                                    .isFav);
                                                       },
                                                       child: productNotifiers
                                                               .isFav
@@ -501,7 +500,7 @@ class _productPageState extends State<productPage> {
                                                                         Colors
                                                                             .white,
                                                                     side: BorderSide(
-                                                                        color: size.contains(shoessize[index]["size"])
+                                                                        color: shoessize[index]["isSelected"]
                                                                             ? Colors
                                                                                 .black
                                                                             : Colors
@@ -517,7 +516,7 @@ class _productPageState extends State<productPage> {
                                                                           "size"],
                                                                       style: appstyle(
                                                                           18,
-                                                                          size.contains(shoessize[index]["size"])
+                                                                          shoessize[index]["isSelected"]
                                                                               ? Colors.white
                                                                               : Colors.black,
                                                                           FontWeight.w600),
@@ -525,82 +524,15 @@ class _productPageState extends State<productPage> {
                                                                     selectedColor:
                                                                         Colors
                                                                             .black,
-                                                                    selected: size.contains(
-                                                                        shoessize[index]
-                                                                            [
-                                                                            "size"]),
+                                                                    selected: shoessize[
+                                                                            index]
+                                                                        [
+                                                                        "isSelected"],
                                                                     onSelected:
-                                                                        (newsState) async {
-                                                                      print(productNotifiers
-                                                                          .shoeSizes
-                                                                          .length);
+                                                                        (newsState) {
                                                                       productNotifiers
                                                                           .toggleChecked(
                                                                               index);
-                                                                      size.clear();
-                                                                      size.addAll(
-                                                                          productNotifiers
-                                                                              .sizeChecked());
-
-                                                                      List<String>
-                                                                          id =
-                                                                          [];
-
-                                                                      await FirebaseFirestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              "users")
-                                                                          .doc(user
-                                                                              .email)
-                                                                          .collection(
-                                                                              "shoes")
-                                                                          .get()
-                                                                          .then(
-                                                                              (value) {
-                                                                        value
-                                                                            .docs
-                                                                            .forEach((element) {
-                                                                          Map test =
-                                                                              element.data();
-                                                                          id.add(
-                                                                              test["id"]);
-                                                                        });
-                                                                      });
-                                                                      if (id.contains(
-                                                                          widget
-                                                                              .id)) {
-                                                                        await FirebaseFirestore
-                                                                            .instance
-                                                                            .collection("users")
-                                                                            .doc(user.email)
-                                                                            .collection("shoes")
-                                                                            .doc(widget.id)
-                                                                            .update({
-                                                                          "sizes":
-                                                                              productNotifiers.sizeChecked(),
-                                                                        });
-                                                                      } else {
-                                                                        await FirebaseFirestore
-                                                                            .instance
-                                                                            .collection("users")
-                                                                            .doc(user.email)
-                                                                            .collection("shoes")
-                                                                            .doc(widget.id)
-                                                                            .set({
-                                                                          "id":
-                                                                              widget.id,
-                                                                          "fav":
-                                                                              "false",
-                                                                          "gend":
-                                                                              widget.category,
-                                                                          "cart":
-                                                                              "false",
-                                                                          "sizes":
-                                                                              productNotifiers.sizeChecked(),
-                                                                          "quantity":
-                                                                              "1"
-                                                                        });
-                                                                      }
                                                                     },
                                                                   ),
                                                                 ),
@@ -696,7 +628,11 @@ class _productPageState extends State<productPage> {
                                                   "cart": "true",
                                                   "quantity": "1",
                                                   "sizes": productNotifiers
-                                                      .sizeChecked()
+                                                          .sizeChecked()
+                                                          .isEmpty
+                                                      ? "Not Selected"
+                                                      : productNotifiers
+                                                          .sizeChecked()
                                                 });
                                               } else {
                                                 await FirebaseFirestore.instance
@@ -711,11 +647,12 @@ class _productPageState extends State<productPage> {
                                                   "cart": "true",
                                                   "quantity": "1",
                                                   "sizes": productNotifiers
-                                                      .sizeChecked()
+                                                          .sizeChecked()
+                                                          .isEmpty
+                                                      ? "Not Selected"
+                                                      : productNotifiers
+                                                          .sizeChecked()
                                                 });
-                                                carted = "true";
-
-                                                setState(() {});
                                               }
                                             },
                                             child: Container(
@@ -734,8 +671,8 @@ class _productPageState extends State<productPage> {
                                                           Radius.circular(9))),
                                               child: Center(
                                                 child: Text(
-                                                  carted == "true"
-                                                      ? btn
+                                                  productNotifiers.isCarted
+                                                      ? "Update My order"
                                                       : "Add to Bag",
                                                   style: appstyle(
                                                       20,
