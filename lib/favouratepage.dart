@@ -62,8 +62,9 @@ class _FavouratesState extends State<Favourates> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.black, // status bar color
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.black,
+      systemNavigationBarColor: Colors.grey.shade300, // status bar color
     ));
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),

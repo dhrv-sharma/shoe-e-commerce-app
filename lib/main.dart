@@ -7,6 +7,7 @@ import 'package:ecommerce/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -50,6 +51,10 @@ void signin() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.grey.shade300, // navigation bar color
+  ));
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 

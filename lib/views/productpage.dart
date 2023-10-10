@@ -29,6 +29,8 @@ class _productPageState extends State<productPage> {
   bool isLoading = false;
   bool isCarted = false;
 
+  bool pressed = false;
+
   final user = FirebaseAuth.instance.currentUser!;
   final PageController _pageController = new PageController();
 
@@ -84,8 +86,9 @@ class _productPageState extends State<productPage> {
   Widget build(BuildContext context) {
     print("$isCarted");
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.grey.shade300, // status bar color
-    ));
+        statusBarColor: Colors.grey.shade300,
+        systemNavigationBarColor: Colors.white // status bar color
+        ));
 
     return FutureBuilder<Sneakers>(
         future: _sneakers,
@@ -654,6 +657,9 @@ class _productPageState extends State<productPage> {
                                                           .sizeChecked()
                                                 });
                                               }
+
+                                              pressed = true;
+                                              setState(() {});
                                             },
                                             child: Container(
                                               height: 45,
@@ -671,8 +677,8 @@ class _productPageState extends State<productPage> {
                                                           Radius.circular(9))),
                                               child: Center(
                                                 child: Text(
-                                                  productNotifiers.isCarted
-                                                      ? "Update My order"
+                                                  pressed
+                                                      ? "Cart Updated"
                                                       : "Add to Bag",
                                                   style: appstyle(
                                                       20,

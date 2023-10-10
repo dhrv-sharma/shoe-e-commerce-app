@@ -93,7 +93,10 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.grey.shade300, // status bar color
+      statusBarColor: Colors.grey.shade300,
+
+      systemNavigationBarColor: Colors.grey.shade300, // navigation bar color
+      // status bar color
     ));
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),
@@ -138,6 +141,8 @@ class _CartPageState extends State<CartPage> {
                               : Consumer<cart_Notifer>(
                                   builder: (context, cart_notify, child) {
                                   if (cart_notify.qunatity.isEmpty) {
+                                    // activity opening case
+
                                     cart_notify.qunat_set(quantity_list);
                                     length++;
                                   } else if (length == 0) {
