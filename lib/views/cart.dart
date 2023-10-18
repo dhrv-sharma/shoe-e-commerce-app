@@ -10,6 +10,7 @@ import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
@@ -68,8 +69,6 @@ class _CartPageState extends State<CartPage> {
         shoe_cat.add(myShoe['gend']);
       });
       setState(() {
-        print(shoes_size);
-        print(quantity_list);
         isLoading = false;
         cartShoes =
             helper().getListCARTSneakersById(shoe_id, shoe_cat, shoe_fav);
@@ -161,36 +160,18 @@ class _CartPageState extends State<CartPage> {
                                           )),
                                         )
                                       : shoesList!.isEmpty
-                                          ? SizedBox(
-                                              height: MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                              child: Center(
-                                                  child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 90,
-                                                  ),
-                                                  Icon(
-                                                    Icons
-                                                        .sentiment_dissatisfied,
-                                                    size: MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                        0.15,
-                                                    color: Colors.grey.shade700,
-                                                  ),
-                                                  Text(
-                                                    "Empty Cart",
-                                                    style: appstyle(
-                                                        56,
-                                                        Colors.grey.shade700,
-                                                        FontWeight.w700),
-                                                  )
-                                                ],
-                                              )),
+                                          ? Center(
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                    .size
+                                                    .height,
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 50.w),
+                                                  child: Image.asset(
+                                                      "images/pose.png"),
+                                                ),
+                                              ),
                                             )
                                           : ListView.builder(
                                               // list view have in built the scroll view

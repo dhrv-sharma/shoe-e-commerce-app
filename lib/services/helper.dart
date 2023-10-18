@@ -52,10 +52,6 @@ class helper {
 // getting fav list
   Future<List<Sneakers>> getListMaleSneakersById(
       List<String> id, List<String> categrory, List<String> fav) async {
-    print(id);
-    print(categrory);
-    print(fav);
-
     final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
 
     final maleList = sneakersFromJson(data);
@@ -75,9 +71,6 @@ class helper {
     int index = 0;
 
     id.forEach((element) {
-      print(categrory[index]);
-      print(fav[index]);
-      print(element);
       if (categrory[index] == "Men's Running" && fav[index] == 'true') {
         final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
@@ -96,6 +89,43 @@ class helper {
     });
 
     return sneaker;
+  }
+
+  Future<List<Sneakers>> getuserSearchedShoes(String shoe_name) async {
+    List<Sneakers> searchedShoe = [];
+    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
+
+    final maleList = sneakersFromJson(data);
+
+    final data2 =
+        await the_bundle.rootBundle.loadString("json/women_shoes.json");
+
+    final femaleList = sneakersFromJson(data2);
+
+    final data3 =
+        await the_bundle.rootBundle.loadString("json/kids_shoes.json");
+
+    final kidsList = sneakersFromJson(data3);
+
+    maleList.forEach((element) {
+      if (element.name.toLowerCase().contains(shoe_name)) {
+        searchedShoe.add(element);
+      }
+    });
+
+    femaleList.forEach((element) {
+      if (element.name.toLowerCase().contains(shoe_name)) {
+        searchedShoe.add(element);
+      }
+    });
+
+    kidsList.forEach((element) {
+      if (element.name.toLowerCase().contains(shoe_name)) {
+        searchedShoe.add(element);
+      }
+    });
+
+    return searchedShoe;
   }
 
   Future<List<Sneakers>> getListCARTSneakersById(

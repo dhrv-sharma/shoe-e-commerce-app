@@ -1,14 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/cartpage.dart';
 import 'package:ecommerce/controllers/mainscreen_providers.dart';
 import 'package:ecommerce/favouratepage.dart';
 import 'package:ecommerce/homepage.dart';
-import 'package:ecommerce/model/productcart.dart';
 import 'package:ecommerce/profilepage.dart';
 import 'package:ecommerce/searchpage.dart';
+import 'package:ecommerce/sign_re.dart';
 
 import 'package:ecommerce/views/shared/bottom_nav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +25,8 @@ class _homeState extends State<home> {
     searchpage(),
     Favourates(),
     cartPage(),
-    profilePage()
+    // profilePage()
+    needLogin()
   ];
   @override
   void initState() {

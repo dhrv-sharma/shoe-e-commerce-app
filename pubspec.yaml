@@ -50,6 +50,7 @@ dependencies:
   google_sign_in:
   cloud_firestore: 
   fluttertoast: ^8.2.2
+  flutter_svg: ^2.0.7
 
 
 dev_dependencies:
@@ -79,7 +80,10 @@ flutter:
     - images/adidas.png
     - images/top.png
     - images/shoep.png
-    - images/
+    - images/pose.png
+    - images/india.png
+    - images/user.jpeg
+    - images/bg.jpg
     - json/
 
 
