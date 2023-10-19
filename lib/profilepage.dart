@@ -1,4 +1,7 @@
+import 'package:ecommerce/cartpage.dart';
+import 'package:ecommerce/favouratepage.dart';
 import 'package:ecommerce/loginpage.dart';
+import 'package:ecommerce/orders.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:ecommerce/views/shared/tiles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -161,15 +164,32 @@ class _profilePageState extends State<profilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TilesWidget(
-                            OnTap: () {},
+                            OnTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => myOrders()));
+                            },
                             title: "Order",
                             leading: MaterialCommunityIcons.truck_fast_outline),
                         TilesWidget(
-                            OnTap: () {},
+                            OnTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Favourates()));
+                            },
                             title: "My Favourates",
                             leading: MaterialCommunityIcons.heart_outline),
                         TilesWidget(
-                            OnTap: () {},
+                            OnTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => cartPage(
+                                            value: 1,
+                                          )));
+                            },
                             title: "Cart",
                             leading: Fontisto.shopping_bag_1)
                       ],

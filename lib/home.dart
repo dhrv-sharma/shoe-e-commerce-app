@@ -4,7 +4,6 @@ import 'package:ecommerce/favouratepage.dart';
 import 'package:ecommerce/homepage.dart';
 import 'package:ecommerce/profilepage.dart';
 import 'package:ecommerce/searchpage.dart';
-import 'package:ecommerce/sign_re.dart';
 
 import 'package:ecommerce/views/shared/bottom_nav.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +23,10 @@ class _homeState extends State<home> {
     homePage(),
     searchpage(),
     Favourates(),
-    cartPage(),
-    // profilePage()
-    needLogin()
+    cartPage(
+      value: 0,
+    ),
+    profilePage()
   ];
   @override
   void initState() {

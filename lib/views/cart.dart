@@ -16,11 +16,11 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({
-    super.key,
-  });
+  CartPage({super.key, required this.val});
 
   // we will recieve shoesList  of all cart shoes
+
+  int val = 0;
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -29,6 +29,8 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   bool isLoading = true;
   int length = 0;
+  bool check = false;
+  int vari = 0;
 
   List<String> shoe_id = [];
   List<String> shoe_fav = [];
@@ -37,6 +39,8 @@ class _CartPageState extends State<CartPage> {
 
   // id,quantity
   Map<String, String> quantity_list = {};
+
+  Map<String, String> temp = {};
 
   late Future<List<Sneakers>> cartShoes;
 
@@ -65,6 +69,8 @@ class _CartPageState extends State<CartPage> {
           }
         }
 
+        temp["${myShoe['id']}"] = "false";
+
         shoe_id.add(myShoe['id']);
         shoe_cat.add(myShoe['gend']);
       });
@@ -92,10 +98,11 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      // status bar color
       statusBarColor: Colors.grey.shade300,
 
-      systemNavigationBarColor: Colors.grey.shade300, // navigation bar color
-      // status bar color
+      // navigation bar color
+      systemNavigationBarColor: Colors.grey.shade300,
     ));
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),
@@ -109,6 +116,17 @@ class _CartPageState extends State<CartPage> {
                 const SizedBox(
                   height: 40,
                 ),
+                widget.val == 1
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(
+                          MaterialIcons.close,
+                          color: Colors.black,
+                        ),
+                      )
+                    : Container(),
                 Text(
                   "My Cart",
                   style: appstyle(36, Colors.black, FontWeight.bold),
@@ -139,9 +157,16 @@ class _CartPageState extends State<CartPage> {
                                   )))
                               : Consumer<cart_Notifer>(
                                   builder: (context, cart_notify, child) {
+                                  if (vari == 0) {
+                                    cart_notify.checked.clear();
+                                    cart_notify.checked_data_set(temp);
+                                    vari++;
+                                  }
+                                  check = cart_notify.check_true();
+
+                                  print(check);
                                   if (cart_notify.qunatity.isEmpty) {
                                     // activity opening case
-
                                     cart_notify.qunat_set(quantity_list);
                                     length++;
                                   } else if (length == 0) {
@@ -218,13 +243,20 @@ class _CartPageState extends State<CartPage> {
                                                                 cart_notify
                                                                     .qunatity
                                                                     .clear();
+                                                                await cart_notify
+                                                                    .data_set(
+                                                                        shoesList[index]
+                                                                            .id);
                                                                 shoesList.removeWhere(
                                                                     (element) =>
                                                                         element
                                                                             .id ==
                                                                         shoesList[index]
                                                                             .id);
-                                                                setState(() {});
+                                                                setState(() {
+                                                                  check = cart_notify
+                                                                      .check_true();
+                                                                });
                                                               },
                                                               backgroundColor:
                                                                   const Color(
@@ -281,146 +313,170 @@ class _CartPageState extends State<CartPage> {
                                                                               0,
                                                                               1))
                                                                 ]),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
+                                                            child: Stack(
                                                               children: [
+                                                                Positioned(
+                                                                    top: 2,
+                                                                    left: 2,
+                                                                    child: cart_notify.checked_data_get(shoesList[index].id) ==
+                                                                            "true"
+                                                                        ? GestureDetector(
+                                                                            onTap:
+                                                                                () async {
+                                                                              await cart_notify.data_set(shoesList[index].id);
+                                                                              setState(() {
+                                                                                check = cart_notify.check_true();
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                const Icon(
+                                                                              Feather.check_square,
+                                                                              size: 20,
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                          )
+                                                                        : GestureDetector(
+                                                                            onTap:
+                                                                                () async {
+                                                                              await cart_notify.data_set(shoesList[index].id);
+                                                                              setState(() {
+                                                                                check = cart_notify.check_true();
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                const Icon(
+                                                                              Feather.square,
+                                                                              size: 20,
+                                                                              color: Colors.black,
+                                                                            ),
+                                                                          )),
                                                                 Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
                                                                   children: [
-                                                                    Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .all(
-                                                                          12),
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl:
-                                                                            shoesList[index].imageUrl[0],
-                                                                        width:
-                                                                            70,
-                                                                        height:
-                                                                            70,
-                                                                        fit: BoxFit
-                                                                            .fill,
-                                                                      ),
-                                                                    ),
-                                                                    Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
+                                                                    Row(
                                                                       children: [
-                                                                        Text(
-                                                                          shoesList[index]
-                                                                              .name,
-                                                                          style: appstyle(
-                                                                              16,
-                                                                              Colors.black,
-                                                                              FontWeight.bold),
+                                                                        Padding(
+                                                                          padding: const EdgeInsets
+                                                                              .all(
+                                                                              12),
+                                                                          child:
+                                                                              CachedNetworkImage(
+                                                                            imageUrl:
+                                                                                shoesList[index].imageUrl[0],
+                                                                            width:
+                                                                                70,
+                                                                            height:
+                                                                                70,
+                                                                            fit:
+                                                                                BoxFit.fill,
+                                                                          ),
                                                                         ),
-                                                                        const SizedBox(
-                                                                          height:
-                                                                              5,
-                                                                        ),
-                                                                        Text(
-                                                                          shoesList[index]
-                                                                              .category,
-                                                                          style: appstyle(
-                                                                              14,
-                                                                              Colors.grey,
-                                                                              FontWeight.bold),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          height:
-                                                                              5,
-                                                                        ),
-                                                                        Row(
+                                                                        Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
                                                                           children: [
                                                                             Text(
-                                                                              "\$${shoesList[index].price}",
-                                                                              style: appstyle(18, Colors.black, FontWeight.bold),
+                                                                              shoesList[index].name,
+                                                                              style: appstyle(16, Colors.black, FontWeight.bold),
                                                                             ),
                                                                             const SizedBox(
-                                                                              width: 20,
+                                                                              height: 5,
                                                                             ),
                                                                             Text(
-                                                                              "Size:",
-                                                                              style: appstyle(18, Colors.grey, FontWeight.bold),
+                                                                              shoesList[index].category,
+                                                                              style: appstyle(14, Colors.grey, FontWeight.bold),
                                                                             ),
                                                                             const SizedBox(
-                                                                              width: 10,
+                                                                              height: 5,
                                                                             ),
-                                                                            Text(
-                                                                              shoes_size["${shoesList[index].id}"]![0],
-                                                                              style: appstyle(18, Colors.grey, FontWeight.bold),
+                                                                            Row(
+                                                                              children: [
+                                                                                Text(
+                                                                                  "\$${shoesList[index].price}",
+                                                                                  style: appstyle(18, Colors.black, FontWeight.bold),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  width: 20,
+                                                                                ),
+                                                                                Text(
+                                                                                  "Size:",
+                                                                                  style: appstyle(18, Colors.grey, FontWeight.bold),
+                                                                                ),
+                                                                                const SizedBox(
+                                                                                  width: 10,
+                                                                                ),
+                                                                                Text(
+                                                                                  shoes_size["${shoesList[index].id}"]![0],
+                                                                                  style: appstyle(18, Colors.grey, FontWeight.bold),
+                                                                                ),
+                                                                              ],
                                                                             ),
                                                                           ],
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: const EdgeInsets
+                                                                              .all(
+                                                                              8.0),
+                                                                          child:
+                                                                              Container(
+                                                                            decoration:
+                                                                                const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(16))),
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                              children: [
+                                                                                InkWell(
+                                                                                    onTap: () async {
+                                                                                      cart_notify.qunat_set_min(shoesList[index].id);
+                                                                                      await FirebaseFirestore.instance.collection("users").doc(user.email.toString()).collection("shoes").doc(shoesList[index].id).update({
+                                                                                        "quantity": cart_notify.quant_rec(shoesList[index].id)
+                                                                                      });
+                                                                                      length++;
+                                                                                    },
+                                                                                    child: const Icon(
+                                                                                      AntDesign.minussquare,
+                                                                                      size: 20,
+                                                                                      color: Colors.grey,
+                                                                                    )),
+                                                                                Text(
+                                                                                  cart_notify.quant_rec(shoesList[index].id) == "null" ? "-" : cart_notify.quant_rec(shoesList[index].id),
+                                                                                  style: appstyle(
+                                                                                    16,
+                                                                                    Colors.black,
+                                                                                    FontWeight.w600,
+                                                                                  ),
+                                                                                ),
+                                                                                InkWell(
+                                                                                    onTap: () async {
+                                                                                      cart_notify.quant_set_plus(shoesList[index].id);
+                                                                                      await FirebaseFirestore.instance.collection("users").doc(user.email.toString()).collection("shoes").doc(shoesList[index].id).update({
+                                                                                        "quantity": cart_notify.quant_rec(shoesList[index].id)
+                                                                                      });
+                                                                                      length++;
+                                                                                    },
+                                                                                    child: const Icon(
+                                                                                      AntDesign.plussquare,
+                                                                                      size: 20,
+                                                                                      color: Colors.black,
+                                                                                    )),
+                                                                              ],
+                                                                            ),
+                                                                          ),
                                                                         ),
+
+                                                                        // ),
                                                                       ],
                                                                     )
                                                                   ],
                                                                 ),
-                                                                Row(
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .all(
-                                                                          8.0),
-                                                                      child:
-                                                                          Container(
-                                                                        decoration: const BoxDecoration(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            borderRadius: BorderRadius.all(Radius.circular(16))),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                          children: [
-                                                                            InkWell(
-                                                                                onTap: () async {
-                                                                                  cart_notify.qunat_set_min(shoesList[index].id);
-                                                                                  await FirebaseFirestore.instance.collection("users").doc(user.email.toString()).collection("shoes").doc(shoesList[index].id).update({
-                                                                                    "quantity": cart_notify.quant_rec(shoesList[index].id)
-                                                                                  });
-                                                                                  length++;
-                                                                                },
-                                                                                child: const Icon(
-                                                                                  AntDesign.minussquare,
-                                                                                  size: 20,
-                                                                                  color: Colors.grey,
-                                                                                )),
-                                                                            Text(
-                                                                              cart_notify.quant_rec(shoesList[index].id) == "null" ? "-" : cart_notify.quant_rec(shoesList[index].id),
-                                                                              style: appstyle(
-                                                                                16,
-                                                                                Colors.black,
-                                                                                FontWeight.w600,
-                                                                              ),
-                                                                            ),
-                                                                            InkWell(
-                                                                                onTap: () async {
-                                                                                  cart_notify.quant_set_plus(shoesList[index].id);
-                                                                                  await FirebaseFirestore.instance.collection("users").doc(user.email.toString()).collection("shoes").doc(shoesList[index].id).update({
-                                                                                    "quantity": cart_notify.quant_rec(shoesList[index].id)
-                                                                                  });
-                                                                                  length++;
-                                                                                },
-                                                                                child: const Icon(
-                                                                                  AntDesign.plussquare,
-                                                                                  size: 20,
-                                                                                  color: Colors.black,
-                                                                                )),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-
-                                                                    // ),
-                                                                  ],
-                                                                )
                                                               ],
                                                             ),
                                                           ),
@@ -432,12 +488,15 @@ class _CartPageState extends State<CartPage> {
                         }
                       }),
                 ),
+                check
+                    ? Align(
+                        alignment: Alignment.bottomCenter,
+                        child: checkButton(
+                            onTap: () {}, label: "Proceed to CheckOut"),
+                      )
+                    : Container()
               ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: checkButton(onTap: () {}, label: "Proceed to CheckOut"),
-            )
           ],
         ),
       ),

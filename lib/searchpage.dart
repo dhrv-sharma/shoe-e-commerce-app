@@ -81,11 +81,15 @@ class _searchpageState extends State<searchpage> {
                       } else if (snapshot.hasError) {
                         return const Text("error");
                       } else if (snapshot.data!.isEmpty) {
-                        return Center(
-                            child: Text(
-                          "No Product found",
-                          style: appstyle(25, Colors.black, FontWeight.w700),
-                        ));
+                        return Container(
+                          height: MediaQuery.of(context).size.height,
+                          color: Colors.grey.shade300,
+                          child: Center(
+                              child: Text(
+                            "No Product found",
+                            style: appstyle(25, Colors.black, FontWeight.w700),
+                          )),
+                        );
                       } else {
                         final shoe = snapshot.data;
                         return Container(
