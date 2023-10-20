@@ -21,16 +21,43 @@ It's been an incredible journey of learning, growth, and accomplishment, and I c
 #Flutter #ECommerceApp #Firebase #AppDevelopment #Provider #UIUX #LinkedInProjects
 
 
-![Screenshot_1697796914](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/b667e4e9-bd90-4aee-92bf-5e1eff82415b)
-
-
-![Screenshot_1697796819](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/65ddf266-81aa-4575-83d8-5fd9df82861e)
+![Screenshot_1697796914](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/b667e4e9-bd90-4aee-92bf-5e1eff82415b)  ![Screenshot_1697796819](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/65ddf266-81aa-4575-83d8-5fd9df82861e)
 
 
 ![Screenshot_1697796791](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/17665b97-54d4-4b4d-9068-4d3811cd05ba)
 
 
 ![Screenshot_1697797406](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/087274f1-c876-44c8-bb55-a411f2cbdd8e)
+
+![Screenshot_1697797078](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/7b83dcb4-b6cf-4469-838a-9e8eb1cbf795)
+
+
+![Screenshot_1697797066](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/2e8e224c-7163-4111-8f4f-713e870ae4a0)
+
+
+
+![Screenshot_1697797052](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/b221ffbb-6cdb-4b3b-b1e1-8f90136a1023)
+
+
+![Screenshot_1697797005](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/7ac0f846-1188-4e1c-8292-2b32275066f6)
+
+
+![Screenshot_1697796997](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/f3b0b93d-0efe-4568-afa6-bd0f598bd6f8)
+
+
+![Screenshot_1697796993](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/d67993c2-62e3-467e-b79a-1ccbf54afad3)
+
+
+![Screenshot_1697796978](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/2a125b8d-10b4-4e4c-86de-28bc6d00cdc4)
+
+
+![Screenshot_1697796962](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/2959cec6-4298-46de-a174-bf2a1258e060)
+
+
+![Screenshot_1697796935](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/0af06926-0473-4f49-872d-96abc69a2237)
+
+
+![Screenshot_1697796927](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/b57871a5-b2f6-4419-bd79-b4e00d7f5bfe)
 
 
 ![Screenshot_1697797402](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/cd65d64f-cea9-4eb4-83cb-d7972da5887c)
@@ -63,35 +90,7 @@ It's been an incredible journey of learning, growth, and accomplishment, and I c
 ![Screenshot_1697797152](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/adf4cc2a-1723-4157-b2e4-9c81b0b4e590)
 
 
-![Screenshot_1697797078](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/7b83dcb4-b6cf-4469-838a-9e8eb1cbf795)
 
-
-![Screenshot_1697797066](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/2e8e224c-7163-4111-8f4f-713e870ae4a0)
-
-
-
-![Screenshot_1697797052](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/b221ffbb-6cdb-4b3b-b1e1-8f90136a1023)
-
-
-![Screenshot_1697797005](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/7ac0f846-1188-4e1c-8292-2b32275066f6)
-
-
-![Screenshot_1697796997](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/f3b0b93d-0efe-4568-afa6-bd0f598bd6f8)
-
-
-![Screenshot_1697796993](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/d67993c2-62e3-467e-b79a-1ccbf54afad3)
-
-
-![Screenshot_1697796978](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/2a125b8d-10b4-4e4c-86de-28bc6d00cdc4)
-
-
-![Screenshot_1697796962](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/2959cec6-4298-46de-a174-bf2a1258e060)
-
-
-![Screenshot_1697796935](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/0af06926-0473-4f49-872d-96abc69a2237)
-
-
-![Screenshot_1697796927](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/b57871a5-b2f6-4419-bd79-b4e00d7f5bfe)
 
 State Management with Provider: To keep the app running smoothly and efficiently, I incorporated Provider for state management. This played a crucial role in ensuring that data is shared seamlessly across different parts of the app.
 
