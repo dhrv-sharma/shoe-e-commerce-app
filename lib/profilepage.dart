@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/cartpage.dart';
 import 'package:ecommerce/favouratepage.dart';
 import 'package:ecommerce/loginpage.dart';
@@ -19,6 +20,30 @@ class profilePage extends StatefulWidget {
 }
 
 class _profilePageState extends State<profilePage> {
+  String username = "test";
+  void getDetails() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.email.toString())
+        .collection("profile")
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        Map test = element.data();
+        username = test["username"];
+      });
+    });
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,7 +150,7 @@ class _profilePageState extends State<profilePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Dhruv Sharma",
+                                    username,
                                     style: appstyle(
                                         12, Colors.black, FontWeight.w600),
                                   ),
@@ -177,7 +202,9 @@ class _profilePageState extends State<profilePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Favourates()));
+                                      builder: (context) => const Favourates(
+                                            cross: true,
+                                          )));
                             },
                             title: "My Favourates",
                             leading: MaterialCommunityIcons.heart_outline),
@@ -233,7 +260,13 @@ class _profilePageState extends State<profilePage> {
                             title: "Settings",
                             leading: SimpleLineIcons.settings),
                         TilesWidget(
-                            OnTap: () {},
+                            OnTap: () async {
+                              await FirebaseAuth.instance.signOut();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => loginPage()));
+                            },
                             title: "Logout",
                             leading: AntDesign.logout),
                       ],

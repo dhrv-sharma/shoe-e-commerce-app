@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/model/productcart.dart';
+import 'package:ecommerce/profilepage.dart';
 import 'package:ecommerce/services/helper.dart';
 import 'package:ecommerce/views/productpage.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
@@ -12,7 +13,9 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 // email need to be updated
 class Favourates extends StatefulWidget {
-  const Favourates({super.key});
+  const Favourates({super.key, required this.cross});
+
+  final bool cross;
 
   @override
   State<Favourates> createState() => _FavouratesState();
@@ -63,19 +66,38 @@ class _FavouratesState extends State<Favourates> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
-      systemNavigationBarColor: Colors.grey.shade300, // status bar color
-    ));
     return Scaffold(
       backgroundColor: const Color(0xFFE2E2E2),
+      appBar: widget.cross
+          ? AppBar(
+              backgroundColor: Colors.black,
+              elevation: 0,
+              toolbarHeight: 45,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.black,
+                systemNavigationBarColor:
+                    Colors.grey.shade300, // status bar color
+              ),
+            )
+          : AppBar(
+              backgroundColor: Colors.black,
+              elevation: 0,
+              toolbarHeight: 0,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.black,
+                systemNavigationBarColor:
+                    Colors.grey.shade300, // status bar color
+              ),
+            ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
             Container(
-              padding: const EdgeInsets.fromLTRB(16, 45, 0, 0),
+              padding: widget.cross
+                  ? const EdgeInsets.fromLTRB(16, 0, 0, 0)
+                  : const EdgeInsets.fromLTRB(16, 35, 0, 0),
               height: MediaQuery.of(context).size.height * 0.4,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
@@ -84,9 +106,15 @@ class _FavouratesState extends State<Favourates> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8),
-                child: Text(
-                  "My Favourites",
-                  style: appstyle(36, Colors.white, FontWeight.bold),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "My Favourites",
+                      style: appstyle(36, Colors.white, FontWeight.bold),
+                    )
+                  ],
                 ),
               ),
             ),
@@ -126,7 +154,9 @@ class _FavouratesState extends State<Favourates> {
                                     )
                                   : ListView.builder(
                                       itemCount: shoelist.length,
-                                      padding: const EdgeInsets.only(top: 100),
+                                      padding: widget.cross
+                                          ? const EdgeInsets.only(top: 80)
+                                          : const EdgeInsets.only(top: 100),
                                       itemBuilder:
                                           (BuildContext context, index) {
                                         return Padding(

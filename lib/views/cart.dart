@@ -5,6 +5,7 @@ import 'package:ecommerce/controllers/cart_notifer.dart';
 import 'package:ecommerce/home.dart';
 import 'package:ecommerce/model/productcart.dart';
 import 'package:ecommerce/services/helper.dart';
+import 'package:ecommerce/views/payment.dart';
 import 'package:ecommerce/views/productpage.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,6 +46,9 @@ class _CartPageState extends State<CartPage> {
   late Future<List<Sneakers>> cartShoes;
 
   final user = FirebaseAuth.instance.currentUser!;
+
+  List<Sneakers> checkout_shoes = [];
+  List<String> checkout_quant = [];
 
   // method to get fav shoes from the firebase
   Future<void> getUsersShoes(String mail) async {
@@ -173,6 +177,22 @@ class _CartPageState extends State<CartPage> {
                                     cart_notify.qunatity.clear();
                                     cart_notify.qunat_set(quantity_list);
                                   }
+
+                                  // fln_shoes(cart_notify.checked);
+                                  checkout_shoes.clear();
+                                  checkout_quant.clear();
+
+                                  cart_notify.checked.forEach((key, value) {
+                                    shoesList!.forEach((element) {
+                                      if (element.id == key &&
+                                          value == "true") {
+                                        checkout_shoes.add(element);
+                                        checkout_quant.add(cart_notify
+                                            .qunatity[key]
+                                            .toString());
+                                      }
+                                    });
+                                  });
 
                                   return isLoading
                                       ? SizedBox(
@@ -492,7 +512,15 @@ class _CartPageState extends State<CartPage> {
                     ? Align(
                         alignment: Alignment.bottomCenter,
                         child: checkButton(
-                            onTap: () {}, label: "Proceed to CheckOut"),
+                            onTap: () async {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => paymenTpage(
+                                          orderedShoes: checkout_shoes,
+                                          quant: checkout_quant)));
+                            },
+                            label: "Proceed to CheckOut"),
                       )
                     : Container()
               ],

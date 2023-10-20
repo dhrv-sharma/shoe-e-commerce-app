@@ -1,7 +1,9 @@
 import 'package:ecommerce/controllers/password_notify.dart';
+import 'package:ecommerce/home.dart';
 import 'package:ecommerce/register.dart';
 import 'package:ecommerce/views/shared/appstyle.dart';
 import 'package:ecommerce/views/shared/customfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -119,7 +121,13 @@ class _loginPageState extends State<loginPage> {
               height: 40.h,
             ),
             GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                      email: email.text, password: pass.text);
+
+                  Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (context) => home()));
+                },
                 child: Container(
                   height: 55.h,
                   width: 300,

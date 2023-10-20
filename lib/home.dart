@@ -22,7 +22,9 @@ class _homeState extends State<home> {
   List<Widget> pageList = [
     homePage(),
     searchpage(),
-    Favourates(),
+    Favourates(
+      cross: false,
+    ),
     cartPage(
       value: 0,
     ),

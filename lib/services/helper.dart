@@ -1,6 +1,5 @@
 import 'package:ecommerce/model/productcart.dart';
 import 'package:flutter/services.dart' as the_bundle;
-import '';
 
 // this class fetches data from the json file and return it to the app
 class helper {
@@ -130,10 +129,6 @@ class helper {
 
   Future<List<Sneakers>> getListCARTSneakersById(
       List<String> id, List<String> categrory, List<String> fav) async {
-    print(id);
-    print(categrory);
-    print(fav);
-
     final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
 
     final maleList = sneakersFromJson(data);
@@ -153,9 +148,6 @@ class helper {
     int index = 0;
 
     id.forEach((element) {
-      print(categrory[index]);
-      print(fav[index]);
-      print(element);
       if (categrory[index] == "Men's Running" && fav[index] == 'true') {
         final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
