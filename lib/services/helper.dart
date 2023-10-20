@@ -90,6 +90,46 @@ class helper {
     return sneaker;
   }
 
+  Future<List<Sneakers>> getorderedSneakersById(
+      List<String> id, List<String> categrory) async {
+    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
+
+    final maleList = sneakersFromJson(data);
+
+    final data2 =
+        await the_bundle.rootBundle.loadString("json/women_shoes.json");
+
+    final femaleList = sneakersFromJson(data2);
+
+    final data3 =
+        await the_bundle.rootBundle.loadString("json/kids_shoes.json");
+
+    final kidsList = sneakersFromJson(data3);
+
+    List<Sneakers> sneaker = [];
+
+    int index = 0;
+
+    id.forEach((element) {
+      if (categrory[index] == "Men's Running") {
+        final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+        // add male fav shoes
+      } else if (categrory[index] == "Women's Running") {
+        final temp = femaleList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+
+        // add female shoes
+      } else if (categrory[index] == "Kids' Running") {
+        final temp = kidsList.firstWhere((sneaker) => sneaker.id == element);
+        sneaker.add(temp);
+      } else {}
+      index++;
+    });
+
+    return sneaker;
+  }
+
   Future<List<Sneakers>> getuserSearchedShoes(String shoe_name) async {
     List<Sneakers> searchedShoe = [];
     final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
