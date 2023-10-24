@@ -20,12 +20,13 @@ It's been an incredible journey of learning, growth, and accomplishment, and I c
 
 #Flutter #ECommerceApp #Firebase #AppDevelopment #Provider #UIUX #LinkedInProjects
 
+![one](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/ce12bc70-3657-4fab-ab53-8ab5b0fda616)
+
+![two](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/de9aa95d-ea75-4d0c-b6e2-c7ba86f10d58)
+
+![three](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/f575546c-4ed9-4a58-9261-b03c1361257e)
 
 ![four](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/83e8a32d-c21d-4075-ae16-27f621be4320)
-
-
-
-
 
 State Management with Provider: To keep the app running smoothly and efficiently, I incorporated Provider for state management. This played a crucial role in ensuring that data is shared seamlessly across different parts of the app.
 
